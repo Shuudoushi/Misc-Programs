@@ -7,15 +7,17 @@ local event = require("event")
 local kb = require("keyboard")
 local unicode = require("unicode")
 local running = true
+local X = r1.getNumberOfControlRods()
 
 local function round(num, idp)
 	local mult = 10^(idp or 0)
 	return math.floor(num * mult + 0.5) / mult
 end
 
-local rodsNumber = {"Control Rod ", r1.getControlRodName(O), ": ", r1.getControlRodLevel(O), "% Insertion"}
-for i = 1 do
-	r1.getNumberOfControlRods()
+local function rodsList()
+	for i = 0,X do
+		print("Control Rod " .. r1.getControlRodName(i) .. ": " .. r1.getControlRodLevel(i) .. "% Insertion")
+	end
 end
 
 local function ui()
@@ -52,17 +54,7 @@ local function ui()
 	term.setCursor(1,11)
 	term.write("Number of Control Rods: " .. r1.getNumberOfControlRods())
 	term.setCursor(1,12)
-	term.write("Control Rod " .. r1.getControlRodName(0) .. ": " .. r1.getControlRodLevel(0) .. "% Insertion")
-	term.setCursor(1,13)
-	term.write("Control Rod " .. r1.getControlRodName(1) .. ": " .. r1.getControlRodLevel(1) .. "% Insertion")
-	term.setCursor(1,14)
-	term.write("Control Rod " .. r1.getControlRodName(2) .. ": " .. r1.getControlRodLevel(2) .. "% Insertion")
-	term.setCursor(1,15)
-	term.write("Control Rod " .. r1.getControlRodName(3) .. ": " .. r1.getControlRodLevel(3) .. "% Insertion")
-	term.setCursor(1,16)
-	term.write("Control Rod " .. r1.getControlRodName(4) .. ": " .. r1.getControlRodLevel(4) .. "% Insertion")
-	term.setCursor(1,17)
-	term.write("Control Rod " .. r1.getControlRodName(5) .. ": " .. r1.getControlRodLevel(5) .. "% Insertion")
+	rodsList()
 end
 
 local function userInput()
