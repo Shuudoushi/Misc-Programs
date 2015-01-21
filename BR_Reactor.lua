@@ -15,7 +15,7 @@ local function round(num, idp)
 end
 
 local function rodsList()
-	for i = 0,X do
+	for i = 0,X-1 do
 		print("Control Rod " .. r1.getControlRodName(i) .. ": " .. r1.getControlRodLevel(i) .. "% Insertion")
 	end
 end
