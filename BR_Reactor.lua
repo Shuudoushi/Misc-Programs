@@ -74,7 +74,7 @@ end
 
 local function rodControl(rodNum, percent)
 	local rodNum = rodNum - 1
-	if rodNum >= 0 or rodNum < X then
+	if rodNum >= 0 and rodNum <= X then
 		r1.setControlRodLevel(rodNum, percent)
 	else
 		print("Invald rod Number. Rods numbered as 1~" .. X .. ".")
