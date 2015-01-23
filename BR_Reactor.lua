@@ -113,7 +113,15 @@ end
 	percent = tonumber(output[3])
 	output = ""
 	commandInput = ""
-  	rodControl(rod,percent)
+  	rodControl(rod, percent)
+  	ui()
+  end
+  if string.match(commandInput, "rodAll") then
+  	local output = thesplit(commandInput, " ")
+  	percentAll = tonumber(output[1])
+  	r1.setAllControlRodLevels(percentAll)
+  	output = ""
+  	commandInput = ""
   	ui()
   end
   if commandInput == "full" then
