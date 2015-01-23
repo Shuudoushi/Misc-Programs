@@ -111,6 +111,8 @@ end
 	local output = thesplit(commandInput, " ")
 	rod = tonumber(output[2])
 	percent = tonumber(output[3])
+	output = ""
+	commandInput = ""
   	rodControl(rod,percent)
   	ui()
   end
