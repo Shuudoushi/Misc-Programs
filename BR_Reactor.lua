@@ -82,12 +82,31 @@ local function rodControl(rodNum, percent)
 	end
 end
 
+local function inputKey()
+	term.setCursor(1,3)
+	term.write("Command Key: ")
+	term.setCursor(1,4)
+	term.write("back - Returns to the Status screen.")
+	term.setCursor(65,4)
+	term.write("rod <1~" .. X .. "> <0~100> - Sets rod X to X% insertion.")
+	term.setCursor(1,5)
+	term.write("exit - Exits the program, but leaves the reactor running.")
+	term.setCursor(65,5)
+	term.write("stop - Shuts the reator down.")
+	term.setCursor(1,6)
+	term.write("start - Starts the reactor.")
+	term.setCursor(65,6)
+	term.write("setAll <0~100> - Sets all control rods to X.")
+	term.setCursor(10,1)
+end
+
 local function userInput()
 	_, _, _, c = event.pull(0.5, "key_down")
 	if c == kb.keys.enter or c == kb.keys.numpadenter then
 	term.clear()
 	term.setCursor(1,1)
 	term.write("Command: ")
+	inputKey()
 	commandInput = term.read()
 	commandInput = string.gsub(commandInput, "\n", "")
 end
