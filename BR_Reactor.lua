@@ -1,5 +1,6 @@
 local component = require("component")
 local computer = require("computer")
+local string = require("string")
 local r1 = component.br_reactor
 local term = require("term")
 local os = require("os")
@@ -8,6 +9,8 @@ local kb = require("keyboard")
 local unicode = require("unicode")
 local running = true
 local X = r1.getNumberOfControlRods()
+local args = {...}
+local commandInput = ""
 
 local function round(num, idp)
 	local mult = 10^(idp or 0)
@@ -18,6 +21,18 @@ local function rodsList()
 	for i = 0,X-1 do
 		print("Control Rod " .. r1.getControlRodName(i) .. ": " .. r1.getControlRodLevel(i) .. "% Insertion")
 	end
+end
+
+local function thesplit(inputstr, sep)
+		if sep == nil then
+			sep = "%s"
+		end
+		local t={} ; i=1
+		for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+			t[i] = str
+			i = i + 1
+		end
+		return t
 end
 
 local function ui()
@@ -57,6 +72,16 @@ local function ui()
 	rodsList()
 end
 
+local function rodControl(rodNum, percent)
+	local rodNum = rodNum - 1
+	if rodNum >= 0 or rodNum < X then
+		print("Invald rod Number. Rods numbered as 1~" .. X .. ".")
+		os.sleep(2.5)
+	else
+		r1.setControlRodLevel(rodNum, percent)
+	end
+end
+
 local function userInput()
 	_, _, _, c = event.pull(0.5, "key_down")
 	if c == kb.keys.enter or c == kb.keys.numpadenter then
@@ -81,6 +106,19 @@ end
   end
   if commandInput == "back" then
   	ui()
+  end
+  if string.match(commandInput, "rod") then
+	local output = thesplit(commandInput, " ")
+	rod = tonumber(output[2])
+	percent = tonumber(output[3])
+  	rodControl(rod,percent)
+  	ui()
+  end
+  if commandInput == "full" then
+  	r1.setAllControlRodLevels(0)
+  end
+  if commandInput == "close" then
+  	r1.setAllControlRodLevels(100)
   end
 end
 
