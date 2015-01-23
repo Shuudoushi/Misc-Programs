@@ -75,10 +75,10 @@ end
 local function rodControl(rodNum, percent)
 	local rodNum = rodNum - 1
 	if rodNum >= 0 or rodNum < X then
+		r1.setControlRodLevel(rodNum, percent)
+	else
 		print("Invald rod Number. Rods numbered as 1~" .. X .. ".")
 		os.sleep(2.5)
-	else
-		r1.setControlRodLevel(rodNum, percent)
 	end
 end
 
@@ -116,9 +116,9 @@ end
   	rodControl(rod, percent)
   	ui()
   end
-  if string.match(commandInput, "rodAll") then
+  if string.match(commandInput, "setAll") then
   	local output = thesplit(commandInput, " ")
-  	percentAll = tonumber(output[1])
+  	percentAll = tonumber(output[2])
   	r1.setAllControlRodLevels(percentAll)
   	output = ""
   	commandInput = ""
