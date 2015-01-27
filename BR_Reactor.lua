@@ -1,7 +1,6 @@
 local component = require("component")
 local computer = require("computer")
 local string = require("string")
-local t1 = component.br_turbine
 local r1 = component.br_reactor
 local term = require("term")
 local os = require("os")
@@ -11,12 +10,16 @@ local unicode = require("unicode")
 local shell = require("shell")
 local running = true
 local X = r1.getNumberOfControlRods()
-local coolantType = r1.getCoolantType()
-local hotFluidType = r1.getHotFluidType()
 local commandInput = ""
 local refresh = 1
 local power = r1.getEnergyProducedLastTick()
 local energyBuffer = r1.getEnergyStored()
+
+if component.isAvailable("br_turbine") then
+	local t1 = component.br_turbine
+	local coolantType = r1.getCoolantType()
+	local hotFluidType = r1.getHotFluidType()
+end
 
 local function round(num, idp)
 	local mult = 10^(idp or 0)
@@ -61,8 +64,6 @@ local function activeCool()
 		print("Hot Fluid Type: " .. hotFluidType)
 		power = t1.getEnergyProducedLastTick()
 		energyBuffer = t1.getEnergyStored()
-	else
-		t1 = nil
 	end
 end
 
