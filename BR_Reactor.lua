@@ -64,6 +64,9 @@ local function activeCool()
 		print("Hot Fluid Type: " .. hotFluidType)
 		power = t1.getEnergyProducedLastTick()
 		energyBuffer = t1.getEnergyStored()
+	else
+		power = r1.getEnergyProducedLastTick()
+		energyBuffer = r1.getEnergyStored()
 	end
 end
 
