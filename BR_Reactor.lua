@@ -16,9 +16,9 @@ local power = r1.getEnergyProducedLastTick()
 local energyBuffer = r1.getEnergyStored()
 
 if component.isAvailable("br_turbine") then
-	local t1 = component.br_turbine
-	local coolantType = r1.getCoolantType()
-	local hotFluidType = r1.getHotFluidType()
+	t1 = component.br_turbine
+	coolantType = r1.getCoolantType()
+	hotFluidType = r1.getHotFluidType()
 end
 
 local function round(num, idp)
@@ -126,7 +126,7 @@ local function inputKey()
 	term.setCursor(75,6)
 	term.write("setAll <0~100> - Sets all control rods to X.")
 	term.setCursor(1,7)
-	term.write("update - Updates the program, the program must be manually restarted")
+	term.write("update - Updates the program, the program must be manually restarted.")
 	term.setCursor(10,1)
 end
 
